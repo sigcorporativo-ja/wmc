@@ -1,0 +1,59 @@
+<div class="m-control m-wmc-container">
+   <!-- TITLE -->
+   <div class="title">Gestión de la sesión</div>
+
+   <input id="tab-wcm-1" class="tabs" data-tab="loadWMC" type="radio" name="tabs-wmc" checked>
+   <label for="tab-wcm-1">Cargar Sesión</label>
+
+   <input id="tab-wcm-2" class="tabs" data-tab="saveWMC" type="radio" name="tabs-wmc">
+   <label for="tab-wcm-2">Guardar Sesión</label>
+   <div class="tabs-border"></div>
+
+   <!-- FORM -->
+   <div id="content-wmc-1" class="content-tab">
+      <div class="form">
+         <div class="info">
+            Carga un WMC v1.1.0 como fichero o desde una url
+         </div>
+         <div class="load-name">
+            <label>Nombre de la sesión</label>
+            <input type="text" value="Sesión">
+         </div>
+         <!-- file -->
+         <div class="file">
+            <label>Fichero WMC</label>
+            <input type="file" accept=".xml">
+         </div>
+         <div class="url">
+            <label>Url WMC</label>
+            <input type="text">
+         </div>
+      </div>
+      <!-- buttons -->
+      <div class="button">
+         <button class="load" title="Cargar WMC" {{#unless layerName}} disabled{{/unless}}> <i class="g-cartografia-subir"></i>
+            Cargar Sesión</button>
+      </div>
+   </div>
+
+   <div id="content-wmc-2" class="content-tab">
+      <div class="form">
+         <div class="info">
+            Guarda un WMC v1.1.0 como fichero
+         </div>
+         <!-- Nombre fichero -->
+         <div class="save-name">
+            <label>Título del fichero de descarga</label>
+            <input type="text" value="Sesión">
+         </div>
+      </div>
+      <!-- buttons -->
+      <div class="button">
+         <button class="save" title="Guardar WMC" {{#unless layerName}} disabled{{/unless}}> <i class="g-cartografia-guardar"></i>
+            Guardar Sesión</button>
+      </div>
+   </div>
+
+
+
+</div>
