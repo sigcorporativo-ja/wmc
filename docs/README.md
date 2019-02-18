@@ -17,7 +17,6 @@
 ```javascript
 let sp = new M.plugin.WMC();
 myMap.addPlugin(sp);
-});
 ```  
 
 
