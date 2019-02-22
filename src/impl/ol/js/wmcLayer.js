@@ -60,7 +60,7 @@ export class WMCLayer extends M.impl.layer.WMC {
             try {
                 if (documentXML) {
                     //JGL: mapea5 incluye WMC y WMC110 dentro del array wmc
-                    var formater = M.impl.format.wmc.WMC ? new M.impl.format.wmc.WMC() : new M.impl.format.WMC();
+                    var formater = M.impl.format.wmc ? new M.impl.format.wmc.WMC() : new M.impl.format.WMC();
                     const context = formater.readFromDocument(documentXML);
                     success(context);
                 } else if (this.url) {
@@ -68,7 +68,7 @@ export class WMCLayer extends M.impl.layer.WMC {
                     M.remote.get(this.url).then((response) => {
                         var wmcDocument = response.xml;
                         //JGL: mapea5 incluye WMC y WMC110 dentro del array wmc
-                        var formater = M.impl.format.wmc.WMC ? new M.impl.format.wmc.WMC() : new M.impl.format.WMC();
+                        var formater = M.impl.format.wmc ? new M.impl.format.wmc.WMC() : new M.impl.format.WMC();
                         var context = formater.readFromDocument(wmcDocument);
                         success(context);
                     });
