@@ -184,7 +184,7 @@ export class WMCControl extends M.Control {
         M.dialog.info('Tu navegador no soporta la descarga de ficheros Blob HML5');
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       M.dialog.error('Error al guardar el contexto del mapa');
     }
   }
@@ -243,7 +243,7 @@ export class WMCControl extends M.Control {
 
 
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       M.dialog.error('Error al cargar el fichero. Compruebe que se trata del fichero correcto');
     }
   }

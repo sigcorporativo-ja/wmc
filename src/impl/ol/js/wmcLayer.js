@@ -11,19 +11,19 @@ export class WMCLayer extends M.impl.layer.WMC {
      * @extends {M.impl.layer.WMC}
      * @api stable
      */
-    constructor (options) {
+    constructor(options) {
         super(options);
         this.projection = null;
     }
 
     /**
-   * This function select this WMC layer and
-   * triggers the event to draw it
-   *
-   * @public
-   * @function
-   * @api stable
-   */
+     * This function select this WMC layer and
+     * triggers the event to draw it
+     *
+     * @public
+     * @function
+     * @api stable
+     */
     select() {
         if (this.selected === false) {
             // unselect layers
@@ -59,15 +59,16 @@ export class WMCLayer extends M.impl.layer.WMC {
         return new Promise((success, fail) => {
             try {
                 if (documentXML) {
-                    const formater = new M.impl.format.WMC();
+                    //JGL: mapea5 incluye WMC y WMC110 dentro del array wmc
+                    var formater = M.impl.format.wmc.WMC ? new M.impl.format.wmc.WMC() : new M.impl.format.WMC();
                     const context = formater.readFromDocument(documentXML);
                     success(context);
-                }
-                else if (this.url) {
+                } else if (this.url) {
                     // Carga el contexto
                     M.remote.get(this.url).then((response) => {
                         var wmcDocument = response.xml;
-                        var formater = new M.impl.format.WMC();
+                        //JGL: mapea5 incluye WMC y WMC110 dentro del array wmc
+                        var formater = M.impl.format.wmc.WMC ? new M.impl.format.wmc.WMC() : new M.impl.format.WMC();
                         var context = formater.readFromDocument(wmcDocument);
                         success(context);
                     });
@@ -99,8 +100,7 @@ export class WMCLayer extends M.impl.layer.WMC {
             // Si ambas son visible, o no visibles, o alguna de las dos no es base no se ordenan
             if ((visibleA && visibleB) || (!visibleA && !visibleB) || !isBaseLayerA || !isBaseLayerB) {
                 return 0;
-            }
-            else if (visibleA) {
+            } else if (visibleA) {
                 return -1;
             } else {
                 return 1;
