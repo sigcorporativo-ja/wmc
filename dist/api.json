@@ -1,0 +1,24 @@
+{
+  "url": {
+    "name": "wmc",
+    "separator": "*"
+  },
+  "constructor": "M.plugin.WMC",
+  "files": {
+    "ol": {
+      "scripts": "wmc.ol.min.js",
+      "styles": "wmc.min.css"
+    }
+  },
+  "metadata": {
+    "name": "wmc",
+    "description": "Edición fichero de contexto WMC",
+    "text": "Plugin de Mapea para poder guardar la sesión de trabajo mediante un fichero de contexto de mapa (WMC), permitiendo poder recuperar, o compartir, dicha sesión en cualquier momento.",
+    "version": "1.0.0",
+    "date": "",
+    "author": "",
+    "org": "",
+    "tags": "mapea,plugin",
+    "icon": "./facade/assets/icons/icons.svg"
+  }
+}
