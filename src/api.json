@@ -1,0 +1,33 @@
+{
+  "url": {
+    "name": "Wmc",
+    "separator": "*"
+  },
+  "constructor": "M.plugin.Wmc",
+  "parameters": [{
+    "type": "object",
+    "properties": [{
+      "type": "enum",
+      "name": "position",
+      "position": 0,
+      "possibleValues": ["TL", "TR", "BR", "BL"]
+    }]
+  }],
+  "files": {
+    "ol": {
+      "scripts": "wmc.ol.min.js",
+      "styles": "wmc.min.css"
+    }
+  },
+  "metadata": {
+    "name": "Wmc",
+    "description": "Plugin para poder guardar la sesión de trabajo mediante un fichero de contexto de mapa (WMC)",
+    "text": "Permite poder recuperar, o compartir, una sesión de trabajo en contexto de mapa en cualquier momento",
+    "version": "1.0.0",
+    "date": "September 2nd, 2019",
+    "author": "",
+    "org": "Instituto de Estadística y Cartografía",
+    "tags": "mapea,plugin",
+    "icon": "./facade/assets/icons/icons.svg"
+  }
+}
