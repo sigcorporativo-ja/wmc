@@ -7,8 +7,8 @@
   "parameters": [],
   "files": {
     "ol": {
-      "scripts": "wmc.ol.min.js",
-      "styles": "wmc.ol.min.css"
+      "scripts": ["wmc.ol.min.js"],
+      "styles": ["wmc.ol.min.css"]
     }
   },
   "metadata": {
