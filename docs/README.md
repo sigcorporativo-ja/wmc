@@ -2,7 +2,7 @@
 
 Plugin de Mapea desarrollado por el Instituto de Estadística y Cartografía para poder guardar la sesión de trabajo mediante un fichero de contexto de mapa (WMC), permitiendo poder recuperar o compartir dicha sesión en cualquier momento.
 
-![Imagen1](./img/wmc_1.png)
+![Imagen1](../img/wmc_1.png)
 
 ## Dependencias
 
