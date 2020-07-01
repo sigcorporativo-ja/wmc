@@ -1,11 +1,13 @@
-import namespace from 'mapea-util/decorator';
-import WMCImplControl from 'impl/wmcControl';
-import WMCLayer from './wmcLayer.js';
+/**
+ * @module M/control/WmcControl
+ */
+
 import * as xmlbuilder from 'xmlbuilder';
+import WmcImplControl from 'impl/wmccontrol';
+import template from 'templates/wmc';
+import WmcLayer from './wmclayer';
 
-@namespace("M.control")
-export class WMCControl extends M.Control {
-
+export default class WmcControl extends M.Control {
   /**
    * @classdesc
    * Main constructor of the class. Creates a PluginControl
@@ -15,14 +17,14 @@ export class WMCControl extends M.Control {
    * @extends {M.Control}
    * @api stable
    */
-  constructor () {
+  constructor() {
     // 1. checks if the implementation can create PluginControl
-    if (M.utils.isUndefined(M.impl.control.WMCControl)) {
+    if (M.utils.isUndefined(WmcImplControl)) {
       M.exception('La implementación usada no puede crear controles WMCControl');
     }
     // 2. implementation of this control
-    let impl = new M.impl.control.WMCControl();
-    super(impl, "WMC");
+    const impl = new WmcImplControl();
+    super(impl, 'wmc');
 
     this.file_ = null;
     this.inputUrl_ = null;
@@ -37,17 +39,14 @@ export class WMCControl extends M.Control {
     // Inputs nombre guardado wmc
     this.inputWMCSaveName_ = null;
     this.facadeMap_ = null;
-
   }
 
   /**
-   *
-   *
    * @param {any} html
    * @memberof WMCControl
    */
   addEvents(html) {
-    let inputFile = html.querySelector('.form div.file > input');
+    const inputFile = html.querySelector('.form div.file > input');
     this.loadBtn_ = html.querySelector('.button > button.load');
     this.saveBtn_ = html.querySelector('.button > button.save');
     this.inputUrl_ = html.querySelector('.form div.url > input');
@@ -56,16 +55,16 @@ export class WMCControl extends M.Control {
     this.inputWMCLoadName_ = html.querySelector('.form div.load-name > input');
     this.inputWMCSaveName_ = html.querySelector('.form div.save-name > input');
 
-    inputFile.addEventListener('change', (evt) => this.changeFile(evt, inputFile.files[0]));
-    this.loadBtn_.addEventListener('click', (evt) => this.loadWMC());
-    this.saveBtn_.addEventListener('click', (evt) => this.saveWMC());
-    this.inputUrl_.addEventListener('input', (evt) => this.checkButtons());
-    this.inputWMCLoadName_.addEventListener('input', (evt) => this.checkButtons());
-    this.inputWMCSaveName_.addEventListener('input', (evt) => this.checkButtons());
+    inputFile.addEventListener('change', evt => this.changeFile(evt, inputFile.files[0]));
+    this.loadBtn_.addEventListener('click', evt => this.loadWMC());
+    this.saveBtn_.addEventListener('click', evt => this.saveWMC());
+    this.inputUrl_.addEventListener('input', evt => this.checkButtons());
+    this.inputWMCLoadName_.addEventListener('input', evt => this.checkButtons());
+    this.inputWMCSaveName_.addEventListener('input', evt => this.checkButtons());
 
     // Annado el evento a cada radio button para saber cuando se ha cambiado de tab
     this.inputsTabs_.forEach((element) => {
-      element.addEventListener('change', (evt) => this.changeTab(evt));
+      element.addEventListener('change', evt => this.changeTab(evt));
     });
   }
 
@@ -80,16 +79,25 @@ export class WMCControl extends M.Control {
   createView(map) {
     this.facadeMap_ = map;
     return new Promise((success, fail) => {
-      M.template.compile('wmc.html', {}).then((html) => {
-        //Establecer eventos
-        this.addEvents(html);
-        success(html);
-      });
+      const html = M.template.compileSync(template);
+      this.addEvents(html);
+      success(html);
     });
   }
 
   /**
+   * This function compares controls
    *
+   * @public
+   * @function
+   * @param {M.Control} control to compare
+   * @api stable
+   */
+  equals(control) {
+    return control instanceof WmcControl;
+  }
+
+  /**
    * Obtiene elemento del DOM escapando caracteres (no validos para busqueda por CSS)
    * @param {any} target
    * @param {any} selector
@@ -97,19 +105,21 @@ export class WMCControl extends M.Control {
    * @memberof WMCControl
    */
   getQuerySelectorScapeCSS(target, selector) {
+    // eslint-disable-next-line no-undef
     return target.querySelector(CSS.escape(selector));
   }
 
   changeTab(evt) {
-    evt = (evt || window.event);
-    let itemTarget = evt.target;
+    const e = (evt || window.event);
+    const itemTarget = e.target;
     this.selectedTab_ = itemTarget.dataset.tab;
     this.checkButtons();
   }
 
   checkButtons() {
-    if (this.selectedTab_ == 'loadWMC') {
-      this.loadBtn_.disabled = (M.utils.isNullOrEmpty(this.file_) && M.utils.isNullOrEmpty(this.inputUrl_.value)) ||
+    if (this.selectedTab_ === 'loadWMC') {
+      this.loadBtn_.disabled = (M.utils.isNullOrEmpty(this.file_) &&
+          M.utils.isNullOrEmpty(this.inputUrl_.value)) ||
         M.utils.isNullOrEmpty(this.inputWMCLoadName_.value);
       this.inputUrl_.disabled = !M.utils.isNullOrEmpty(this.file_);
     } else {
@@ -118,13 +128,10 @@ export class WMCControl extends M.Control {
   }
 
   /**
-   *
-   *
    * @param {any} file
    * @memberof WMCControl
    */
   changeFile(evt, file) {
-    evt = (evt || window.event);
     this.file_ = file;
     this.inputWMCLoadName_.value = this.file_.name.replace(/\.[^/.]+$/, '');
     this.checkButtons();
@@ -138,32 +145,37 @@ export class WMCControl extends M.Control {
   }
 
   /**
-   *
-   *
    * @param {any} evt
    * @memberof WMCControl
    */
   changeName(evt) {
-    evt = (evt || window.event);
-    let itemTarget = evt.target;
-    this.loadBtn_.disabled = (itemTarget.value.trim() == '') ? true : false;
+    const e = (evt || window.event);
+    const itemTarget = e.target;
+    this.loadBtn_.disabled = (itemTarget.value.trim() === '');
   }
 
   saveWMC() {
     try {
       if ('Blob' in window) {
-        let fileName = this.inputWMCSaveName_.value + '.xml';
+        const fileName = `${this.inputWMCSaveName_.value}.xml`;
         const ViewContext = this.getImpl().getViewContext();
         // let  writer = xmlbuilder.streamWriter(process.stdout);
-        const xml = xmlbuilder.create({ ViewContext }, { stringify: { convertAttKey: "$" }, encoding: "utf-8" });
-        const content = xml.end();
-        let textFileAsBlob = new Blob([content], {
-          type: "text/plain;charset=utf-8"
+        const xml = xmlbuilder.create({
+          ViewContext,
+        }, {
+          stringify: {
+            convertAttKey: '$',
+          },
+          encoding: 'utf-8',
         });
+        const content = xml.end();
+        /* eslint-disable */
+        const textFileAsBlob = new Blob([content], { type: 'text/plain;charset=utf-8' });
         if ('msSaveOrOpenBlob' in navigator) {
           navigator.msSaveOrOpenBlob(textFileAsBlob, fileName);
+          /* eslint-enable */
         } else {
-          var downloadLink = document.createElement('a');
+          const downloadLink = document.createElement('a');
           downloadLink.download = fileName;
           downloadLink.innerHTML = 'Download File';
           if ('webkitURL' in window) {
@@ -178,50 +190,51 @@ export class WMCControl extends M.Control {
           }
 
           downloadLink.click();
-
         }
       } else {
         M.dialog.info('Tu navegador no soporta la descarga de ficheros Blob HML5');
       }
     } catch (error) {
-      //console.log(error);
       M.dialog.error('Error al guardar el contexto del mapa');
     }
   }
 
   /**
-   *
-   *
    * @memberof WMCControl
    */
   loadWMC() {
     let options;
     if (this.file_) {
-      let fileReader = new FileReader();
+      // eslint-disable-next-line no-undef
+      const fileReader = new FileReader();
       fileReader.addEventListener('load', (e) => {
         let documentXML;
         if ((typeof DOMParser !== 'undefined')) {
           documentXML = (new DOMParser()).parseFromString(fileReader.result, 'text/xml');
         }
-        options = { documentXML };
+        options = {
+          documentXML,
+        };
         this.addToMap(options);
       });
 
       fileReader.readAsText(this.file_);
     } else {
-      options = { url: this.inputUrl_.value };
+      options = {
+        url: this.inputUrl_.value,
+      };
       this.addToMap(options);
     }
   }
 
   addToMap(options) {
     try {
-      const wmcLayer = new M.layer.WMCLayer(options);// adds the WMC layer
+      const wmcLayer = new WmcLayer(options); // adds the WMC layer
       wmcLayer.name = this.inputWMCLoadName_.value;
       wmcLayer.url = options.url;
       // Compruebo que no esté ya añadida al mapa
       const wmc = this.facadeMap_.getWMC(wmcLayer);
-      if (wmc.length == 0) {
+      if (wmc.length === 0) {
         this.facadeMap_.getImpl().addWMC([wmcLayer]);
         this.facadeMap_.fire(M.evt.ADDED_LAYER, [wmcLayer]);
         this.facadeMap_.fire(M.evt.ADDED_WMC, [wmcLayer]);
@@ -240,10 +253,7 @@ export class WMCControl extends M.Control {
       } else {
         wmc[0].select();
       }
-
-
     } catch (error) {
-      //console.log(error);
       M.dialog.error('Error al cargar el fichero. Compruebe que se trata del fichero correcto');
     }
   }
@@ -251,8 +261,4 @@ export class WMCControl extends M.Control {
   destroyClickedElement_(event) {
     document.body.removeChild(event.target);
   }
-
-
-
 }
-

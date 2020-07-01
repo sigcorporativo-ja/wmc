@@ -7,11 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="mapea" content="yes">
     <title>WMC SESSION</title>
-    <!-- styles -->
-    <link href="https://mapea4-sigc.juntadeandalucia.es/assets/css/mapea.ol.min.css" rel="stylesheet" />
-    <!-- CSS plugin here -->
-
-    <link href="http://localhost:6123/wmc.css" rel="stylesheet" />
+    <link href="http://sigc-dev.desarrollo.guadaltel.es/mapea5/assets/css/mapea-5.2.0.ol.min.css" rel="stylesheet" />
     <style rel="stylesheet">
         html,
         body {
@@ -24,35 +20,10 @@
 </head>
 
 <body>
-    <!-- container -->
     <div id="mapjs" class="container"></div>
-    <!-- libraries -->
-
-     <script type="text/javascript" src="https://mapea4-sigc.juntadeandalucia.es/js/mapea.ol.min.js"></script>
-     <!-- <script type="text/javascript" src="http://www.juntadeandalucia.es/sandetel/publicacion/mapea/js/mapea-5.0.0.ol.min.js"></script> -->
-    
-
-    <!-- configuration -->
-    <script type="text/javascript" src="https://mapea4-sigc.juntadeandalucia.es/js/configuration.js"></script>
-    <!-- min js -->
-    <script type="text/javascript" src="http://localhost:6123/wmc.ol.js"></script>
-
-
-    <script type="application/javascript">
-        var myMap = M.map({
-            container: "mapjs",
-            controls: ["overviewmap",
-                "scale", "panzoom"
-            ],
-            layers: [],
-            wmcfiles: ["https://www.ideandalucia.es/visor/wmc/mapa_base.xml*Contexto"]
-        });
-       
-        let pWMCsession = new M.plugin.WMC();
-        myMap.addPlugin(pWMCsession);
-    </script>
-
-
+    <script type="text/javascript" src="http://sigc-dev.desarrollo.guadaltel.es/mapea5/js/mapea-5.2.0.ol.min.js"></script>
+    <script type="text/javascript" src="http://sigc-dev.desarrollo.guadaltel.es/mapea5/js/configuration-5.2.0.js"></script>
+    <script type="text/javascript" src="/main.js"></script>
 </body>
 
 </html>

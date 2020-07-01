@@ -1,22 +1,33 @@
-# WMC Session
+# M.plugin.Wmc
 
-[![Build Tool](https://img.shields.io/badge/build-Webpack-green.svg)](https://github.com/sigcorporativo-ja/Mapea4-dev-webpack)  
+Plugin de Mapea desarrollado por el Instituto de Estadística y Cartografía para poder guardar la sesión de trabajo mediante un fichero de contexto de mapa (WMC), permitiendo poder recuperar o compartir dicha sesión en cualquier momento.
 
-## Descripción
+![Imagen1](../img/wmc_1.png)
 
- Plugin de [Mapea](https://github.com/sigcorporativo-ja/Mapea4) desarrollado por el [Instituto de Estadística y Cartografía](https://www.juntadeandalucia.es/institutodeestadisticaycartografia) para poder guardar la sesión de trabajo mediante un fichero de contexto de mapa (WMC), permitiendo poder recuperar, o compartir, dicha sesión en cualquier momento.
- 
- ![Imagen](./images/wmc1.PNG)
- 
- 
-## Recursos y uso
+## Dependencias
 
-- js: wmc.ol.min.js
-- css: wmc.min.css
+- wmc.ol.min.js
+- wmc.ol.min.css
 
+
+```html
+ <link href="../../plugins/wmc/wmc.ol.min.css" rel="stylesheet" />
+ <script type="text/javascript" src="../../plugins/wmc/wmc.ol.min.js"></script>
+```
+
+## Parámetros
+
+## Eventos
+
+## Otros métodos
+
+## Ejemplos de uso
+
+### Ejemplo 1
 ```javascript
-let sp = new M.plugin.WMC();
-myMap.addPlugin(sp);
-```  
+   const map = M.map({
+   });
 
-
+   let sp = new M.plugin.Wmc();
+   map.addPlugin(sp);
+```
