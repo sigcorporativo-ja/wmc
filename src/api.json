@@ -1,6 +1,6 @@
 {
   "url": {
-    "name": "Wmc",
+    "name": "wmc",
     "separator": "*"
   },
   "constructor": "M.plugin.Wmc",

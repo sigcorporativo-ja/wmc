@@ -15,12 +15,6 @@ Plugin de Mapea desarrollado por el Instituto de Estadística y Cartografía par
  <script type="text/javascript" src="../../plugins/wmc/wmc.ol.min.js"></script>
 ```
 
-## Parámetros
-
-## Eventos
-
-## Otros métodos
-
 ## Ejemplos de uso
 
 ### Ejemplo 1
