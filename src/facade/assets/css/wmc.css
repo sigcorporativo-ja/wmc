@@ -22,9 +22,8 @@
     height: 39px;
     border-bottom: 1px solid rgba(0, 0, 0, .13);
     font-size: 15px;
-    background-color: #00897B !important;
-    color: white;
-    font-weight: 600;
+    background-color: #fff !important;
+    color: #000;
 }
 
 /*********************
@@ -69,7 +68,7 @@
 .m-wmc-container input.tabs:checked+label {
     color: #555;
     border: 1px solid #ddd;
-    border-top: 2px solid #FF9800;
+    border-top: 2px solid #00897B;
     border-bottom: 1px solid #fff;
 }
 
@@ -95,8 +94,6 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     margin: 0px;
-    height: 20px;
-    padding: 0px;
     color: initial;
 }
 
@@ -113,7 +110,7 @@
     margin: 0 auto;
     text-align: center;
     display: table;
-    background-color: #FFB74D;
+    background-color: #E8E8E8C2;
 }
 
 .m-wmc-container div.button>button {
