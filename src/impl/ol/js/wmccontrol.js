@@ -15,13 +15,6 @@ export default class WmcControl extends M.impl.Control {
     this.facadeMap_ = map;
     this.element = html;
 
-    const olMap = map.getMapImpl();
-    ol.control.Control.call(this, {
-      element: html,
-      target: null,
-    });
-    olMap.addControl(this);
-
     // super addTo - don't delete
     super.addTo(map, html);
   }
